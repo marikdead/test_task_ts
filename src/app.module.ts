@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { NomenklaturaController } from './nomenklatura.controller';
-import { NomenklaturaService } from './nomenklatura.service'
+import { NomenklaturaModule } from './nomenklatura/nomenklatura.module';
+import { LinksModule } from './links/links.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -16,7 +16,7 @@ import { NomenklaturaService } from './nomenklatura.service'
     logging: true,
     entities: [__dirname + '/**/*.entity{.js, .ts}'],
     synchronize: true,
-  }),],
+  }), NomenklaturaModule, LinksModule,],
   controllers: [AppController],
   providers: [AppService],
 })
