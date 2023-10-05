@@ -6,13 +6,11 @@ export class Links {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Nomenklature)
-  @JoinColumn({ name: 'nomenklatureId' })
-  nomenklatureId: Nomenklature;
+  @ManyToOne(() => Nomenklature, (nomenklature) => nomenklature.links, { eager: true })
+  nomenklature: Nomenklature;
 
-  @ManyToOne(() => Nomenklature)
-  @JoinColumn({ name: 'parentId' })
-  parentId: Nomenklature;
+  @ManyToOne(() => Nomenklature, (nomenklature) => nomenklature.parentLinks)
+  parent: Nomenklature;
 
   @Column({ type: 'int' })
   kol: number;

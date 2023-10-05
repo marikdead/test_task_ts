@@ -18,7 +18,7 @@ export class NomenklaturaController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.nomenklaturaService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.nomenklaturaService.findOne(id);
   }
 }

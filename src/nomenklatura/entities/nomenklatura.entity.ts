@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Links } from 'src/links/entities/link.entity';
 
 @Entity()
 export class Nomenklature {
@@ -10,4 +11,10 @@ export class Nomenklature {
 
   @Column({ type: 'int' })
   cost: number;
+
+  @OneToMany(() => Links, (links) => links.nomenklature)
+  links: Links[];
+
+  @OneToMany(() => Links, (links) => links.parent)
+  parentLinks: Links[];
 }

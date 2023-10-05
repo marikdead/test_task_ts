@@ -13,7 +13,7 @@ import { LinksModule } from './links/links.module';
     username: 'postgres',
     password: '5666',
     database: 'Test_DB',
-    logging: true,
+    logging: false,
     entities: [__dirname + '/**/*.entity{.js, .ts}'],
     synchronize: true,
   }), NomenklaturaModule, LinksModule,],
