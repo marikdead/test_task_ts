@@ -3,7 +3,7 @@ import { NomenklaturaService } from './nomenklatura.service';
 import { CreateNomenklaturaDto } from './dto/create-nomenklatura.dto';
 import { UpdateNomenklaturaDto } from './dto/update-nomenklatura.dto';
 
-@Controller('nomenklatures')
+@Controller('api/nomenklatures')
 export class NomenklaturaController {
   constructor(private readonly nomenklaturaService: NomenklaturaService) {}
 

@@ -1,10 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNomenklaturaDto } from './dto/create-nomenklatura.dto';
 import { UpdateNomenklaturaDto } from './dto/update-nomenklatura.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Nomenklature } from './entities/nomenklatura.entity';
 import { Links } from 'src/links/entities/link.entity';
 import { Repository } from 'typeorm';
+
+
 
 @Injectable()
 export class NomenklaturaService {
@@ -33,27 +35,38 @@ export class NomenklaturaService {
     return await this.nomenklatureRepository.find();
   }
 
-  async findOne(id: number): Promise<Nomenklature> {
+  async findOne(id: number, parentQuantity: number = 1): Promise<any> {
+    const nomenklature = await this.nomenklatureRepository.findOne({
+        where: { id },
+        relations: ["parentLinks", "parentLinks.nomenklature"],
+    });
 
-    const nomenklature = await this.nomenklatureRepository.findOne({ where: { id }, relations: ['parentLinks']});
- 
-    if (nomenklature && nomenklature.parentLinks.length > 0) {
-      const childNomenklatures: Nomenklature[] = await Promise.all(
-          nomenklature.parentLinks.map(link => this.findOne(link.nomenklature.id))
-      );
-      nomenklature.parentLinks.forEach((link, index) => {
-          link.nomenklature = childNomenklatures[index];
-      });
-  }
+    if (!nomenklature) {
+        throw new NotFoundException(`Product with id ${id} not found`);
+    }
 
-    return nomenklature
-  }
+    let totalCost = nomenklature.cost * parentQuantity;
+    const childProducts: any[] = [];
 
-  update(id: number, updateNomenklaturaDto: UpdateNomenklaturaDto) {
-    return `This action updates a #${id} nomenklatura`;
-  }
+    if (nomenklature.parentLinks && nomenklature.parentLinks.length > 0) {
+        for (const link of nomenklature.parentLinks) {
+            const childProduct = link.nomenklature;
+            const childQuantity = link.kol;
+            const childCost = childProduct.cost * childQuantity;
+            const childProductInfo = await this.findOne(childProduct.id, childQuantity);
+            totalCost += childProductInfo.totalCost * parentQuantity;
+            childProducts.push(childProductInfo);
+        }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} nomenklatura`;
+    return {
+        id: nomenklature.id,
+        name: nomenklature.name,
+        cost: nomenklature.cost,
+        quantity: parentQuantity,
+        totalCost,
+        childProducts,
+    };
   }
 }
+
