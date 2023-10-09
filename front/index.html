@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Front Part (Vue js)</title>
+</head>
+<body>
+    <div id="app">
+      <div class="container" :style="{ height: containerHeight }">
+        <div class="buttons-section">
+          <div class="buttons-container">
+            <button v-for="(button, index) in buttons" :key="index" @click="() => loadInfo(index)" class="button">{{ button.name }}</button>
+          </div>
+          <div class="add-button-section">
+            <button class="add-button" @click="togglePanel">ДОБАВИТЬ</button>
+          </div>
+        </div>
+        <div class="panels">
+          <div class="info" v-if="infoVisible">
+            <ul>
+              <template v-for="item in flattenProducts(selectedInfo)">
+                <li :style="{ marginLeft: item.depth * 20 + 'px' }">
+                  <h2>{{ item.name }}</h2> <h3>Количество: {{ item.quantity }} | Цена: {{item.cost}} | Стоимость: {{ item.totalCost }}</h3>
+                </li>
+              </template>
+            </ul>
+          </div>
+          <div class="panel" v-if="panelVisible">
+            <input placeholder="Наименование" v-model="newNomName">
+            <input type="number" placeholder="Стоимость" v-model="newNomCost">
+            <button class="postButton" @click="postInfo" style="color: black;">ПОДТВЕРДИТЬ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: row; 
+  height: 500px; 
+  border-radius: 10px;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+.buttons-section {
+  flex: 0 0 auto;
+  background-color: #1a237e;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  border-right: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.buttons-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin; 
+  scrollbar-color: transparent transparent;
+  overflow-x: hidden;
+}
+
+.buttons-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.buttons-container::-webkit-scrollbar-thumb {
+  background-color: #7986cb; 
+  border-radius: 4px
+}
+
+.buttons-container::-webkit-scrollbar-track {
+  background-color: #c5cae900; 
+}
+
+.add-button-section {
+  display: flex;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.add-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  width: 40%;
+  background-color: white;
+  z-index: 1; /* Чтобы полоска была поверх содержимого */
+}
+
+.info {
+  position: relative;
+  width: 100%; 
+  background-color: #eceff1; 
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out;
+  overflow: auto; 
+  display: flex;
+  align-items: baseline;
+}
+
+.info ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.info li{
+  background-color: #d5dcffca;
+  border-radius: 1%;
+}
+
+.info ul ul {
+  margin-left: 20px;
+}
+
+.button {
+  display: block;
+  width: max-content;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.add-button {
+  margin-top: auto;
+  position: sticky; 
+  bottom: 10px; 
+  display: block;
+  width: max-content;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panels {
+  display: flex;
+  width: 100%; 
+}
+
+.postButton {
+  display: block;
+  width: max-content;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panel {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5; 
+  padding: 10px;
+  box-sizing: border-box;
+  border-top: 2px solid #ccc; 
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
+  background-color: transparent; 
+  border: 1px solid #ccc;
+  border-radius: 50px; 
+}
