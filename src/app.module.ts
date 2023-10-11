@@ -6,13 +6,13 @@ import { NomenklaturaModule } from './nomenklatura/nomenklatura.module';
 import { LinksModule } from './links/links.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [TypeOrmModule.forRoot({ // настройки подключения к БД
     type: 'postgres',
     host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '5666',
-    database: 'Test_DB',
+    port: 5432, // стандартный порт
+    username: 'postgres', // замените на свои
+    password: '5666', // замените на свои
+    database: 'Test_DB', // имя БД
     logging: false,
     entities: [__dirname + '/**/*.entity{.js, .ts}'],
     synchronize: true,

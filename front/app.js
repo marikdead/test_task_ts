@@ -10,15 +10,17 @@ new Vue({
       selectedInfo: '',
       item: Object
     },
+
     mounted() {
       this.fetchNomenklatures();
     },
+
     methods: {      
       togglePanel() {
         this.panelVisible = !this.panelVisible;
       },
 
-      async fetchNomenklatures() {
+      async fetchNomenklatures() { // получение фронтом список всей номенклатуры
         try {
           const response = await fetch('/api/nomenklatures');
           const data = await response.json();
@@ -28,7 +30,7 @@ new Vue({
         }
       },
 
-      async loadInfo(index) {
+      async loadInfo(index) { // получение полной информации о конкретной номенклатуре
         try {
           const id = this.buttons[index].id;
           const response = await fetch(`/api/nomenklatures/${id}`);
@@ -41,7 +43,7 @@ new Vue({
         }
       },
 
-      flattenProducts(product, depth = 0) {
+      flattenProducts(product, depth = 0) { // обработка информации о номенклатуре для удобного вывода
         let result = [{
           name: product.name,
           quantity: product.quantity,
@@ -57,7 +59,7 @@ new Vue({
         return result;
       },
 
-      async postInfo() {
+      async postInfo() { // фронт обработчик добавления новой номенклатуры
         try{
           const response = await fetch('/api/nomenklatures', {
             method: 'POST',
