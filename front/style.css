@@ -63,7 +63,7 @@ body {
   height: 1px;
   width: 40%;
   background-color: white;
-  z-index: 1; /* Чтобы полоска была поверх содержимого */
+  z-index: 1; 
 }
 
 .info {
